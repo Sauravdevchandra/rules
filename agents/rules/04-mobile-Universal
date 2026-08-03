@@ -1,0 +1,1884 @@
+# Universal Mobile Application Development Standards
+
+## Purpose
+
+Apply these standards to ALL mobile application development work, including:
+
+* New features
+* Refactoring
+* Architecture
+* UI development
+* API integrations
+* Authentication
+* Local storage
+* State management
+* Navigation
+* Testing
+* Performance optimization
+* Security improvements
+* Bug fixes
+
+These rules apply regardless of the mobile technology being used.
+
+Supported examples include:
+
+* Flutter / Dart
+* React Native / JavaScript / TypeScript
+* Android / Kotlin
+* Android / Java
+* iOS / Swift
+* SwiftUI
+* UIKit
+* Kotlin Multiplatform
+* .NET MAUI / C#
+* Ionic
+* Capacitor
+* NativeScript
+* Expo
+* Other mobile frameworks
+
+The AI MUST first inspect and follow the project's existing architecture, conventions, libraries, and patterns before introducing new approaches.
+
+---
+
+# 1. Input Validation
+
+Every user-controlled input MUST be validated before submission.
+
+Server-side validation MUST also be used whenever the application communicates with a backend.
+
+Client-side validation is for user experience and MUST NOT be considered a security boundary.
+
+## Required Fields
+
+Validate:
+
+* Presence
+* Correct data type
+* Non-empty values
+* Minimum length
+* Maximum length
+* Allowed characters
+* Expected format
+* Value ranges
+* Business constraints
+
+Examples include:
+
+* Email
+* Phone number
+* Password
+* OTP
+* PIN
+* Username
+* Date
+* Amount
+* Address
+* URL
+* Search input
+* IDs
+* File names
+
+## Optional Fields
+
+If an optional value is provided, validate:
+
+* Type
+* Length
+* Format
+* Allowed values
+* Character set
+* Range
+
+Never treat "optional" as "unvalidated."
+
+Normalize input where appropriate.
+
+Do not perform destructive sanitization that changes valid user data unnecessarily.
+
+---
+
+# 2. Naming Conventions
+
+Use clear, descriptive, meaningful names.
+
+Good:
+
+`userProfile`
+
+`customerAddress`
+
+`selectedCountry`
+
+`requestPayload`
+
+`validationErrors`
+
+`currentSubscription`
+
+`orderSummary`
+
+`authenticationService`
+
+`paymentRepository`
+
+Avoid meaningless names such as:
+
+`a`
+
+`b`
+
+`d`
+
+`e`
+
+`x`
+
+`abc`
+
+`tmp`
+
+`obj`
+
+`data1`
+
+`list1`
+
+Single-letter variables are acceptable only for conventional very-small scopes where their meaning is obvious.
+
+Use abbreviations only when universally understood, such as:
+
+* ID
+* URL
+* API
+* OTP
+* UUID
+* HTTP
+* JSON
+
+Follow the naming conventions of the language and framework being used.
+
+---
+
+# 3. Code Organization
+
+Follow the Single Responsibility Principle.
+
+Each:
+
+* Class
+* Component
+* Widget
+* View
+* ViewModel
+* Controller
+* Service
+* Repository
+* Use case
+* Function
+
+should have a clear responsibility.
+
+Avoid:
+
+* Massive screens
+* Massive ViewModels
+* Massive Controllers
+* Massive Cubits/BLoCs
+* God classes
+* Large components
+* Large utility files
+
+Break complex UI into smaller reusable components.
+
+Extract reusable business logic into appropriate services, repositories, hooks, use cases, or utilities.
+
+Reuse existing utilities before creating new ones.
+
+Avoid duplicated business logic.
+
+---
+
+# 4. Architecture
+
+Always inspect and follow the project's existing architecture.
+
+DO NOT introduce a new architecture unless explicitly requested or clearly necessary.
+
+Examples may include:
+
+* Clean Architecture
+* MVVM
+* MVC
+* MVI
+* Redux
+* BLoC
+* Feature-based architecture
+* Repository pattern
+* Layered architecture
+
+Do not mix architectural patterns unnecessarily.
+
+Separate concerns between:
+
+* UI
+* State management
+* Business logic
+* Domain logic
+* Network layer
+* Data layer
+* Storage layer
+* Models/entities
+* Navigation
+* Utilities
+
+Business logic MUST NOT be placed directly inside UI rendering functions.
+
+---
+
+# 5. UI Development
+
+Every screen MUST be responsive and adaptive.
+
+Consider:
+
+* Small phones
+* Standard phones
+* Large phones
+* Foldable devices
+* Tablets
+* Landscape orientation
+* Split-screen/multi-window modes where supported
+
+Avoid unnecessary fixed widths and heights.
+
+Prefer:
+
+* Flexible layouts
+* Constraints
+* Relative sizing
+* Adaptive layouts
+* Framework-native responsive APIs
+
+Maintain consistent:
+
+* Padding
+* Margins
+* Spacing
+* Typography
+* Border radius
+* Elevation/shadows
+* Icon sizes
+* Component sizing
+
+Respect:
+
+* Safe areas
+* Notches
+* Dynamic islands/cutouts
+* System navigation areas
+* Keyboard/insets
+
+Support system font scaling where appropriate.
+
+Avoid layouts that break when text becomes larger.
+
+---
+
+# 6. Platform-Specific UI
+
+Respect platform conventions.
+
+Android applications should behave naturally on Android.
+
+iOS applications should behave naturally on iOS.
+
+Do not blindly force one platform's interaction patterns onto another platform.
+
+Consider:
+
+* Back navigation
+* Gestures
+* Dialogs
+* Bottom sheets
+* Navigation bars
+* Status bars
+* Keyboard behavior
+* Haptic feedback
+* System pickers
+* Permissions
+
+Use platform-specific behavior when it materially improves usability.
+
+---
+
+# 7. Accessibility
+
+Accessibility MUST be considered during UI development.
+
+Include where applicable:
+
+* Semantic labels
+* Screen-reader support
+* Accessible names
+* Accessible descriptions
+* Keyboard navigation
+* Switch/accessibility navigation
+* Visible focus states
+* Logical focus order
+* Minimum touch-target sizes
+* Sufficient color contrast
+
+Do not rely exclusively on:
+
+* Color
+* Animation
+* Sound
+
+to communicate important information.
+
+Interactive elements MUST be identifiable to accessibility technologies.
+
+Images conveying information should have meaningful descriptions.
+
+Decorative images should not create unnecessary screen-reader noise.
+
+---
+
+# 8. State Management
+
+Use the project's existing state-management solution.
+
+Do not introduce another state-management library without justification.
+
+Avoid mixing multiple state-management approaches unnecessarily.
+
+Keep state predictable.
+
+Keep UI reactive.
+
+Minimize unnecessary rebuilds/re-renders.
+
+Dispose:
+
+* Controllers
+* Streams
+* Subscriptions
+* Listeners
+* Observers
+
+appropriately.
+
+Separate:
+
+* UI state
+* Application state
+* Server state
+* Persistent state
+
+where useful.
+
+Do not store business logic inside UI-only state objects.
+
+---
+
+# 9. API Integration
+
+Use the project's existing networking solution.
+
+Every network request MUST consider:
+
+* Timeout handling
+* Authentication
+* Authorization
+* Request validation
+* Response validation
+* Error handling
+* Connectivity failure
+* Cancellation where appropriate
+* Retry strategy where appropriate
+
+Never assume API responses are valid.
+
+Validate:
+
+* Required fields
+* Optional fields
+* Null values
+* Types
+* Arrays
+* Empty collections
+* Enum values
+* Nested objects
+
+Handle:
+
+* No internet connection
+* DNS/network failures
+* Connection timeout
+* Read timeout
+* Unauthorized responses
+* Forbidden responses
+* Rate limits
+* Client errors
+* Server errors
+* Parsing errors
+* Unexpected responses
+
+Do not blindly deserialize untrusted responses and assume all fields exist.
+
+---
+
+# 10. API Retry Rules
+
+Do not retry every failed request automatically.
+
+Retries should normally be limited to safe/transient failures.
+
+Be particularly careful retrying:
+
+* Payments
+* Purchases
+* Orders
+* Account creation
+* Messages
+* File uploads
+* Other state-changing operations
+
+Use idempotency mechanisms where supported.
+
+Use exponential backoff where appropriate.
+
+Prevent retry storms.
+
+---
+
+# 11. Authentication
+
+Authentication MUST use secure and established mechanisms.
+
+Never store passwords locally.
+
+Never log:
+
+* Passwords
+* OTPs
+* Access tokens
+* Refresh tokens
+* Authentication cookies
+* Private keys
+
+Authentication flows should properly handle:
+
+* Login
+* Logout
+* Token expiration
+* Token refresh
+* Session expiration
+* Revocation
+* Invalid credentials
+
+Protected functionality MUST be protected by the backend, not only the mobile UI.
+
+---
+
+# 12. Authorization
+
+Authentication does NOT automatically grant authorization.
+
+Protected actions MUST be validated by the backend.
+
+Never rely solely on:
+
+* Hidden buttons
+* Disabled controls
+* Client-side roles
+* Local storage permissions
+* Navigation guards
+
+for authorization.
+
+Assume attackers can modify and replay application requests.
+
+---
+
+# 13. Token Management
+
+Access and refresh tokens MUST be handled securely.
+
+Prefer platform secure-storage mechanisms.
+
+Examples include:
+
+Android:
+
+* Android Keystore-backed storage
+
+iOS:
+
+* Keychain
+
+Cross-platform frameworks:
+
+* Framework libraries backed by Keychain/Keystore or equivalent secure platform storage
+
+Do not store sensitive authentication tokens in insecure plain-text preferences/storage when secure alternatives exist.
+
+Handle token expiration and refresh safely.
+
+Avoid multiple simultaneous refresh requests.
+
+Prevent refresh loops.
+
+Clear sensitive authentication data during logout when appropriate.
+
+---
+
+# 14. Local Storage
+
+Validate stored data before using it.
+
+Never assume locally stored data is valid or trustworthy.
+
+Handle:
+
+* Missing values
+* Corrupted values
+* Old schema versions
+* Invalid JSON
+* Type changes
+* Migration failures
+
+Use secure storage for sensitive values.
+
+Use normal local persistence only for non-sensitive data where appropriate.
+
+Do not treat local storage as a trusted authorization source.
+
+---
+
+# 15. Database
+
+When using local databases such as:
+
+* SQLite
+* Room
+* Core Data
+* Realm
+* Drift
+* Isar
+* Hive
+* ObjectBox
+
+validate data before use.
+
+Use migrations for schema changes.
+
+Never silently destroy user data because a schema changed.
+
+Use transactions where multiple related operations must succeed together.
+
+Avoid storing unnecessary sensitive information.
+
+---
+
+# 16. Security
+
+Never expose:
+
+* API secrets
+* Private API keys
+* Service-role keys
+* Private signing keys
+* Database credentials
+* Administrative tokens
+* Internal secrets
+
+inside mobile application binaries.
+
+Assume attackers can inspect:
+
+* APK files
+* AAB files
+* IPA files
+* JavaScript bundles
+* Dart binaries
+* Native binaries
+* Network traffic
+* Application storage
+
+Mobile applications MUST NOT be treated as trusted environments.
+
+Privileged secrets belong on trusted backend infrastructure.
+
+---
+
+# 17. Network Security
+
+Use HTTPS for production network communication.
+
+Do not disable:
+
+* TLS validation
+* SSL validation
+* Certificate verification
+
+to fix networking problems.
+
+Do not accept every certificate.
+
+Sensitive information should never be transmitted over plaintext HTTP.
+
+Certificate pinning may be considered for high-risk applications when appropriate, but it must include a safe certificate-rotation strategy.
+
+---
+
+# 18. User-Generated Content
+
+Treat all user-generated content as untrusted.
+
+Validate and sanitize where appropriate.
+
+When displaying HTML or rich content:
+
+* Escape unsafe content
+* Sanitize HTML
+* Prevent script execution
+* Prevent malicious URLs
+
+Do not execute user-generated code.
+
+---
+
+# 19. Deep Links
+
+Treat deep-link parameters as untrusted.
+
+Validate:
+
+* Routes
+* IDs
+* URLs
+* Query parameters
+* Authentication state
+* Required permissions
+
+Do not allow deep links to bypass authentication or authorization.
+
+Prevent arbitrary redirect attacks.
+
+---
+
+# 20. WebViews
+
+Avoid WebViews when native functionality is sufficient.
+
+When WebViews are required:
+
+* Restrict navigation
+* Validate URLs
+* Restrict allowed domains
+* Disable unnecessary JavaScript
+* Avoid exposing privileged native bridges
+* Validate bridge messages
+* Prevent arbitrary file access
+
+Never load arbitrary untrusted content into a privileged WebView.
+
+---
+
+# 21. Permissions
+
+Request only permissions required by the feature.
+
+Follow least privilege.
+
+Do not request permissions prematurely.
+
+Explain why sensitive permissions are needed when appropriate.
+
+Handle permission states:
+
+* Granted
+* Denied
+* Permanently denied
+* Restricted
+* Limited
+
+Application functionality should fail gracefully when optional permissions are denied.
+
+---
+
+# 22. Camera, Microphone and Location
+
+Request access only when required.
+
+Do not continuously collect sensitive sensor information without legitimate need.
+
+Stop listeners and sensor access when no longer required.
+
+Clearly handle permission changes.
+
+Do not expose captured media or location information through logs.
+
+---
+
+# 23. File Handling
+
+Validate files before processing.
+
+Check:
+
+* File size
+* Extension
+* MIME type
+* Content type where appropriate
+
+Prevent:
+
+* Path traversal
+* Dangerous file execution
+* Excessive storage consumption
+* Unsupported formats
+
+Use safe temporary storage.
+
+Delete temporary files when no longer required.
+
+---
+
+# 24. Images
+
+Optimize images appropriately.
+
+Use:
+
+* Caching
+* Resizing
+* Compression
+* Lazy loading
+* Thumbnails
+
+Avoid decoding unnecessarily huge images on the main thread.
+
+Handle:
+
+* Invalid images
+* Broken URLs
+* Missing files
+* Loading states
+
+---
+
+# 25. Performance
+
+Optimize for smooth application performance.
+
+Avoid:
+
+* Unnecessary rebuilds
+* Unnecessary re-renders
+* Expensive work during UI rendering
+* Blocking the main/UI thread
+* Excessive nested scrolling
+* Repeated API calls
+* Memory leaks
+
+Use where appropriate:
+
+* Pagination
+* Lazy loading
+* Image caching
+* Debouncing
+* Throttling
+* Efficient list rendering
+* Background processing
+* Memoization
+* Caching
+
+Measure before performing complicated premature optimization.
+
+---
+
+# 26. Memory Management
+
+Dispose resources properly.
+
+Examples include:
+
+* Streams
+* Listeners
+* Timers
+* Controllers
+* Animations
+* Subscriptions
+* Observers
+
+Avoid retaining references to destroyed screens/components.
+
+Be careful with closures capturing large objects or UI contexts.
+
+---
+
+# 27. Offline Handling
+
+Applications requiring network connectivity should handle offline scenarios gracefully.
+
+Consider:
+
+* Connectivity changes
+* Cached data
+* Pending operations
+* Retry queues
+* Conflict resolution
+
+Never silently discard important user changes because connectivity was lost.
+
+Clearly communicate offline state when relevant.
+
+---
+
+# 28. Error Handling
+
+Handle expected and unexpected failures gracefully.
+
+Show user-friendly messages.
+
+Never display:
+
+* Stack traces
+* Database errors
+* Internal API exceptions
+* Server internals
+* Security-sensitive information
+
+Log technical details securely.
+
+Differentiate between recoverable and unrecoverable errors.
+
+---
+
+# 29. Logging
+
+Use the project's structured logging mechanism.
+
+Never log:
+
+* Passwords
+* OTPs
+* Access tokens
+* Refresh tokens
+* Authentication cookies
+* Private keys
+* API secrets
+* Sensitive personal information
+
+Production logs should contain only information required for diagnostics.
+
+Disable unnecessary verbose/debug logging in production.
+
+---
+
+# 30. Crash Reporting
+
+Crash-reporting systems must not accidentally capture sensitive data.
+
+Sanitize:
+
+* User information
+* Network headers
+* Request bodies
+* Authentication information
+* Breadcrumbs
+
+before sending diagnostic data.
+
+---
+
+# 31. Navigation
+
+Use the project's existing navigation system.
+
+Avoid duplicate navigation implementations.
+
+Handle:
+
+* Invalid routes
+* Missing parameters
+* Deep links
+* Back navigation
+* Authentication guards
+* Authorization requirements
+* Restored navigation state
+
+Do not place sensitive information directly in URLs/routes when avoidable.
+
+---
+
+# 32. Forms
+
+Every form MUST:
+
+* Validate before submission
+* Display clear validation errors
+* Prevent duplicate submissions
+* Show loading/progress state
+* Handle network failures
+* Preserve user input when appropriate
+
+Disable or guard submission while a request is already processing.
+
+Do not erase valid user input because one field failed validation.
+
+---
+
+# 33. Keyboard Handling
+
+Forms must work correctly when the keyboard is visible.
+
+Ensure:
+
+* Fields remain accessible
+* Buttons are not unexpectedly hidden
+* Scrolling behaves correctly
+* Focus moves logically
+* Keyboard actions are supported
+
+Dismiss the keyboard appropriately without breaking accessibility.
+
+---
+
+# 34. Loading States
+
+Asynchronous operations should have appropriate loading states.
+
+Avoid indefinite loaders.
+
+Prevent duplicate actions while important operations are pending.
+
+Use skeleton/loading placeholders where they materially improve UX.
+
+Do not block the entire application unnecessarily.
+
+---
+
+# 35. Empty States
+
+Lists and data-driven screens should handle:
+
+* Empty data
+* Initial loading
+* Refreshing
+* Error state
+* Offline state
+
+Do not leave users with unexplained blank screens.
+
+---
+
+# 36. Pagination
+
+Large datasets should use pagination or incremental loading.
+
+Do not download entire datasets unnecessarily.
+
+Prevent duplicate pages and duplicate records.
+
+Handle pagination failures without destroying already loaded data.
+
+---
+
+# 37. Search
+
+Use debouncing for remote searches where appropriate.
+
+Cancel obsolete requests when supported.
+
+Handle:
+
+* Empty queries
+* No results
+* Network failures
+* Rapid typing
+
+Do not perform expensive requests for every keystroke unless explicitly required.
+
+---
+
+# 38. Concurrency
+
+Prevent race conditions.
+
+Be careful with:
+
+* Multiple API requests
+* Token refresh
+* Payments
+* Form submission
+* Data synchronization
+* Background jobs
+
+Ignore or cancel obsolete requests where appropriate.
+
+Use atomic operations for critical state changes.
+
+---
+
+# 39. Background Tasks
+
+Background work should respect platform limitations.
+
+Avoid unnecessary battery usage.
+
+Do not create uncontrolled background loops.
+
+Use platform-supported mechanisms for:
+
+* Background fetch
+* Sync
+* Uploads
+* Downloads
+* Scheduled work
+
+Handle termination and restart safely.
+
+---
+
+# 40. Push Notifications
+
+Treat push-notification payloads as untrusted.
+
+Validate payload data before navigation or performing actions.
+
+Never include unnecessary sensitive information in notifications.
+
+Handle:
+
+* Foreground
+* Background
+* Terminated application
+
+states appropriately.
+
+Do not allow a notification to bypass authorization.
+
+---
+
+# 41. Biometrics
+
+Biometric authentication should use platform APIs.
+
+Never implement custom biometric verification.
+
+Provide appropriate fallback authentication where required.
+
+Do not treat a local biometric success as authorization for backend resources without appropriate authenticated server credentials.
+
+---
+
+# 42. Sensitive Screens
+
+For applications handling highly sensitive information, consider platform protections against:
+
+* Screenshots
+* Screen recording
+* App-switcher previews
+
+when appropriate to the application's threat model.
+
+Do not apply these restrictions unnecessarily to ordinary applications.
+
+---
+
+# 43. Clipboard
+
+Avoid automatically copying sensitive values.
+
+Be careful when copying:
+
+* Passwords
+* OTPs
+* Tokens
+* Recovery codes
+* Financial information
+
+Clear sensitive clipboard data where platform support and use case justify it.
+
+---
+
+# 44. Analytics
+
+Do not send sensitive data to analytics providers.
+
+Avoid tracking:
+
+* Passwords
+* Authentication tokens
+* OTPs
+* Private messages
+* Sensitive form fields
+
+Use privacy-conscious event names and metadata.
+
+---
+
+# 45. Third-Party SDKs
+
+Before adding an SDK:
+
+* Confirm it is necessary
+* Prefer maintained SDKs
+* Review permissions
+* Review data collection
+* Review security implications
+* Review platform compatibility
+
+Avoid adding large dependencies for trivial functionality.
+
+Do not invent package names.
+
+---
+
+# 46. Dependency Management
+
+Prefer maintained and stable dependencies.
+
+Avoid:
+
+* Abandoned packages
+* Known vulnerable packages
+* Unnecessary dependencies
+
+Follow the project's existing dependency strategy.
+
+Do not upgrade major dependencies unnecessarily during unrelated work.
+
+---
+
+# 47. Platform Lifecycle
+
+Handle application lifecycle changes.
+
+Consider:
+
+* Foreground
+* Background
+* Inactive
+* Suspended
+* Terminated
+* Restored
+
+Pause or stop expensive operations when appropriate.
+
+Refresh stale sensitive state when returning to foreground when necessary.
+
+---
+
+# 48. Date and Time
+
+Do not assume one timezone.
+
+Store server timestamps in a consistent format, commonly UTC.
+
+Convert for display when appropriate.
+
+Handle:
+
+* Timezones
+* Daylight saving
+* Locale formatting
+* Date parsing failures
+
+Do not manually construct fragile date strings when platform APIs are available.
+
+---
+
+# 49. Localization
+
+Avoid hardcoded user-facing text when the project supports localization.
+
+Use localization resources.
+
+Design layouts to support longer translated text.
+
+Do not assume English text length.
+
+Consider right-to-left languages when relevant.
+
+---
+
+# 50. Themes
+
+Use centralized:
+
+* Colors
+* Typography
+* Spacing
+* Dimensions
+* Component themes
+
+Avoid hardcoded styling values scattered throughout the application.
+
+Support dark mode when the project requires it.
+
+Ensure both themes maintain accessibility.
+
+---
+
+# 51. Assets
+
+Use centralized asset references where supported.
+
+Avoid duplicated asset paths.
+
+Handle missing assets gracefully.
+
+Optimize images before bundling.
+
+Avoid shipping unnecessary large assets.
+
+---
+
+# 52. Configuration
+
+Separate:
+
+* Development
+* Testing
+* Staging
+* Production
+
+configuration.
+
+Do not hardcode production endpoints throughout source code.
+
+Use the project's configuration/environment system.
+
+Never place privileged server secrets inside mobile configuration.
+
+---
+
+# 53. Feature Flags
+
+Use existing feature-flag infrastructure.
+
+Do not use client-side feature flags as security controls.
+
+A hidden feature can still be discovered and invoked by attackers.
+
+Protected backend operations require server-side authorization.
+
+---
+
+# 54. Code Quality
+
+Write clean, readable, maintainable code.
+
+Requirements:
+
+* Remove unused imports
+* Remove dead code
+* Remove obsolete commented code
+* Keep functions concise
+* Avoid excessive nesting
+* Prefer early returns where appropriate
+* Reduce duplication
+* Extract reusable components
+* Use constants for repeated values
+* Avoid unexplained magic numbers
+* Avoid hardcoded strings where centralized resources exist
+
+Prefer clarity over clever code.
+
+---
+
+# 55. Comments
+
+Write comments only when useful.
+
+Comments should explain:
+
+* Complex business rules
+* Non-obvious decisions
+* Security requirements
+* Performance considerations
+* Workarounds
+
+Do not comment obvious code.
+
+Never include:
+
+* Author information
+* AI-generated signatures
+* "Generated by AI"
+* Creation dates
+* Emojis
+
+in source comments unless explicitly required.
+
+---
+
+# 56. Testing
+
+Write code that is testable.
+
+Prefer:
+
+* Dependency injection
+* Small units
+* Deterministic functions
+* Clear interfaces
+* Mockable dependencies
+
+Avoid tightly coupling UI and business logic.
+
+Important business logic should be unit-testable independently of the UI.
+
+Consider:
+
+* Unit tests
+* Widget/component tests
+* Integration tests
+* UI tests
+* API tests
+
+depending on the project.
+
+---
+
+# 57. Security Testing
+
+Security-sensitive features should include tests for unauthorized behavior.
+
+Test cases should consider:
+
+* Missing authentication
+* Invalid authentication
+* Expired sessions
+* Insufficient permissions
+* Invalid input
+* Modified IDs
+* Malformed responses
+* Replay attempts where relevant
+
+Do not test only successful paths.
+
+---
+
+# 58. Consistency
+
+Maintain consistency throughout the application.
+
+Reuse existing:
+
+* Components
+* Widgets
+* Themes
+* Typography
+* Colors
+* Spacing
+* Utilities
+* Services
+* Validators
+* Extensions
+* Networking layers
+* Repositories
+
+Follow the project's established:
+
+* Folder structure
+* Naming conventions
+* Architecture
+* Coding style
+
+Do not duplicate an existing solution.
+
+---
+
+# 59. Flutter Standards
+
+When working with Flutter:
+
+Use the project's existing state management solution.
+
+If starting a new project and no solution is specified, Riverpod may be preferred.
+
+Use the project's networking library.
+
+If starting a new project and no networking solution is specified, Dio may be used.
+
+Prefer `const` constructors where appropriate.
+
+Avoid business logic inside `build()`.
+
+Keep widgets small and composable.
+
+Dispose appropriately:
+
+* TextEditingController
+* FocusNode
+* AnimationController
+* StreamSubscription
+* other disposable resources
+
+Use immutable models where practical.
+
+Follow Dart null-safety practices.
+
+Avoid `!` unless safety is guaranteed.
+
+Use centralized:
+
+* Theme
+* Colors
+* Typography
+* Spacing
+* Assets
+
+instead of scattered hardcoded values.
+
+---
+
+# 60. React Native Standards
+
+When working with React Native:
+
+Prefer TypeScript for new projects unless otherwise specified.
+
+Use the project's existing:
+
+* Navigation
+* State management
+* Networking
+* Storage
+* Styling
+
+solutions.
+
+Keep components small.
+
+Move business logic into:
+
+* Hooks
+* Services
+* State layers
+* Domain layers
+
+where appropriate.
+
+Avoid unnecessary re-renders.
+
+Use memoization only when useful.
+
+Clean up:
+
+* Event listeners
+* Timers
+* Subscriptions
+
+inside lifecycle cleanup.
+
+Never store privileged secrets inside:
+
+* JavaScript
+* TypeScript
+* Expo configuration exposed to the client
+* application bundles
+
+Use secure native storage for sensitive credentials.
+
+---
+
+# 61. Android Standards
+
+When working with native Android:
+
+Prefer Kotlin for new development unless the project requires Java.
+
+Follow the project's architecture.
+
+Use lifecycle-aware APIs.
+
+Avoid leaking:
+
+* Activity
+* Fragment
+* Context
+* View
+
+references.
+
+Use coroutines appropriately.
+
+Avoid blocking the main thread.
+
+Use ViewModel or the project's equivalent state holder appropriately.
+
+Use Android Keystore-backed mechanisms for sensitive secrets.
+
+Follow modern Android permission APIs.
+
+Respect lifecycle cancellation.
+
+---
+
+# 62. iOS Standards
+
+When working with native iOS:
+
+Follow the project's existing Swift/Objective-C architecture.
+
+For modern Swift projects, use Swift concurrency where appropriate.
+
+Avoid blocking the main thread.
+
+Respect:
+
+* View lifecycle
+* Application lifecycle
+* Memory management
+
+Store sensitive credentials using Keychain.
+
+Avoid unsafe force unwraps unless the value is guaranteed.
+
+Use SwiftUI/UIKit according to the project's established approach.
+
+Do not unnecessarily mix multiple UI architectures.
+
+---
+
+# 63. Kotlin Multiplatform Standards
+
+Keep shared business logic platform-independent where practical.
+
+Do not force platform-specific UI behavior into shared modules.
+
+Use platform implementations for:
+
+* Secure storage
+* Permissions
+* Biometrics
+* Filesystem access
+* Platform APIs
+
+Keep shared code testable.
+
+---
+
+# 64. .NET MAUI Standards
+
+Follow existing dependency-injection patterns.
+
+Keep Views separate from business logic.
+
+Use MVVM where the project uses MVVM.
+
+Use secure platform storage for sensitive credentials.
+
+Avoid blocking UI threads.
+
+Dispose resources appropriately.
+
+Use centralized styling and resources.
+
+---
+
+# 65. Ionic / Capacitor Standards
+
+Treat the application as both:
+
+* Web application
+* Mobile application
+
+Apply web security and mobile security practices.
+
+Do not expose privileged secrets in JavaScript bundles.
+
+Validate native bridge interactions.
+
+Restrict WebView navigation where appropriate.
+
+Use secure native storage for sensitive credentials.
+
+Avoid unsafe HTML rendering.
+
+---
+
+# 66. Release Builds
+
+Production builds MUST:
+
+* Disable unnecessary debug functionality
+* Disable verbose sensitive logging
+* Use production API endpoints
+* Use production-safe configuration
+* Avoid test credentials
+* Avoid development bypasses
+
+Do not ship:
+
+* Debug menus
+* Hardcoded testing accounts
+* Security bypass flags
+* Development secrets
+
+unless intentionally protected.
+
+---
+
+# 67. CI/CD
+
+Never expose signing credentials or secrets in repository code.
+
+Store:
+
+* Signing certificates
+* Keystores
+* Provisioning credentials
+* API secrets
+
+inside secure CI/CD secret systems.
+
+Apply least privilege to build pipelines.
+
+Do not print secrets into build logs.
+
+---
+
+# 68. App Signing
+
+Protect:
+
+* Android signing keys
+* iOS certificates
+* Provisioning profiles
+* Store credentials
+
+Never commit private signing credentials to public repositories.
+
+Use secure credential-management systems.
+
+---
+
+# 69. Store Compliance
+
+Consider relevant requirements from:
+
+* Apple App Store
+* Google Play
+
+for:
+
+* Privacy
+* Permissions
+* Payments
+* Account deletion
+* Tracking
+* Data collection
+* Background functionality
+
+Do not introduce behavior likely to violate platform policies.
+
+---
+
+# 70. Privacy
+
+Collect only necessary user information.
+
+Do not request access to sensitive data without a feature requirement.
+
+Be transparent about data collection.
+
+Respect applicable privacy controls and platform requirements.
+
+Do not send sensitive user information to third parties unnecessarily.
+
+---
+
+# 71. AI Coding Behavior
+
+Before modifying code, the AI MUST inspect:
+
+1. Existing project architecture
+2. Existing components
+3. Existing state-management solution
+4. Existing networking layer
+5. Existing storage solution
+6. Existing validators
+7. Existing utilities
+8. Existing theme/design system
+9. Existing navigation
+10. Existing error-handling patterns
+
+The AI MUST prefer extending existing solutions over creating duplicate infrastructure.
+
+---
+
+# 72. AI Feature Implementation Checklist
+
+Before implementing a mobile feature, determine:
+
+* What input enters the feature?
+* What validation is required?
+* What API calls are involved?
+* What authentication is required?
+* What authorization is required?
+* What states can the screen enter?
+* What happens without internet?
+* What happens on timeout?
+* What happens with invalid server data?
+* What happens during repeated taps?
+* What happens when navigation changes?
+* What resources require cleanup?
+* What sensitive data is involved?
+* What accessibility requirements apply?
+* What device sizes must be supported?
+
+Implement these considerations as part of the feature rather than leaving them as future TODOs.
+
+---
+
+# 73. AI Refactoring Rules
+
+When refactoring:
+
+DO NOT change behavior unnecessarily.
+
+DO NOT:
+
+* Remove validation
+* Remove error handling
+* Remove authentication
+* Remove authorization
+* Remove security checks
+* Remove accessibility
+* Change API contracts
+* Replace architecture
+
+unless explicitly required.
+
+Preserve existing functionality while improving structure.
+
+---
+
+# 74. Do Not Fix Problems by Disabling Security
+
+Never solve errors by:
+
+* Disabling TLS validation
+* Disabling certificate verification
+* Removing authentication
+* Removing authorization
+* Storing credentials insecurely
+* Making private APIs public
+* Hardcoding secrets
+* Disabling input validation
+
+Fix the underlying problem instead.
+
+---
+
+# 75. Final Code Review
+
+Before considering generated code complete, review:
+
+## Functionality
+
+* Does the feature work?
+* Are edge cases handled?
+* Are null/empty states handled?
+
+## Validation
+
+* Are all inputs validated?
+* Are API responses validated?
+
+## Architecture
+
+* Does it follow the existing architecture?
+* Is business logic separated from UI?
+
+## Security
+
+* Are secrets protected?
+* Are permissions minimal?
+* Are authentication and authorization enforced?
+* Is sensitive storage secure?
+
+## Performance
+
+* Are unnecessary rebuilds avoided?
+* Is heavy work off the main thread?
+* Are resources disposed?
+
+## UI
+
+* Is the UI responsive?
+* Does it support different screen sizes?
+* Does it handle keyboard and safe areas?
+
+## Accessibility
+
+* Are controls accessible?
+* Are labels meaningful?
+* Is color contrast sufficient?
+
+## Errors
+
+* Are errors handled gracefully?
+* Are technical details hidden from users?
+
+## Quality
+
+* Is the code readable?
+* Is duplication minimized?
+* Are existing utilities reused?
+* Is dead code removed?
+
+---
+
+# 76. Priority Rule
+
+When requirements conflict, use this priority:
+
+1. Security
+2. Data integrity
+3. User privacy
+4. Correctness
+5. Accessibility
+6. Reliability
+7. Maintainability
+8. Performance
+9. User experience
+10. Development convenience
+
+Never knowingly introduce a serious security or data-integrity problem simply to make implementation faster.
+
+---
+
+# 77. Final Rule
+
+Generated mobile code should be:
+
+SECURE
+
+VALIDATED
+
+RESPONSIVE
+
+ACCESSIBLE
+
+MAINTAINABLE
+
+TESTABLE
+
+PERFORMANT
+
+CONSISTENT
+
+PRODUCTION-READY
+
+The AI must not consider a feature complete merely because the happy path works.
+
+Always account for validation, failures, security, lifecycle, responsiveness, accessibility, and edge cases.
